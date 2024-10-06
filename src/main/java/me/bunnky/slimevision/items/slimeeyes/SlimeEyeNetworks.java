@@ -1,10 +1,9 @@
 package me.bunnky.slimevision.items.slimeeyes;
 
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import me.bunnky.slimevision.utility.Utilities;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -13,9 +12,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import me.bunnky.slimevision.utility.Utilities;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 public class SlimeEyeNetworks extends SlimeEye {
 
@@ -107,8 +108,8 @@ public class SlimeEyeNetworks extends SlimeEye {
         }
 
         StringBuilder message = new StringBuilder();
-        message.append("§nIn Range:\n");
-        message.append("§5Networks: §e").append(total).append("\n");
+        message.append("§n范围:\n");
+        message.append("§5网络: §e").append(total).append("\n");
         message.append("§f┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n");
 
         p.sendMessage(message.toString());

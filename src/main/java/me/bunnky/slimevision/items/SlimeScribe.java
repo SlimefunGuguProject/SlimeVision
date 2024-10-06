@@ -1,11 +1,9 @@
 package me.bunnky.slimevision.items;
 
-import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import me.bunnky.slimevision.items.slimeeyes.SlimeEyeInverted;
-import me.bunnky.slimevision.utility.Utilities;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -16,9 +14,12 @@ import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import me.bunnky.slimevision.items.slimeeyes.SlimeEyeInverted;
+import me.bunnky.slimevision.utility.Utilities;
 
 public class SlimeScribe extends SlimeEyeInverted {
 
@@ -41,7 +42,7 @@ public class SlimeScribe extends SlimeEyeInverted {
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta meta = (BookMeta) book.getItemMeta();
 
-        meta.setTitle("[SV] Invisible Machine Locations");
+        meta.setTitle("[SV] 不可见机器的位置");
         meta.setAuthor(p.getName());
 
         StringBuilder firstPage = new StringBuilder();
@@ -79,7 +80,7 @@ public class SlimeScribe extends SlimeEyeInverted {
         Player p = e.getPlayer();
 
         if (p.getInventory().firstEmpty() == -1) {
-            p.sendMessage("§cInventory full.");
+            p.sendMessage("§cI库存已满。");
             return;
         }
 
@@ -90,7 +91,7 @@ public class SlimeScribe extends SlimeEyeInverted {
 
         if (lastTime != null && (currentTime - lastTime) < cooldown) {
             long remainingTime = (cooldown - (currentTime - lastTime)) / 1000;
-            p.sendMessage("§cYou must wait " + remainingTime + " seconds.");
+            p.sendMessage("§c您必须等待 " + remainingTime + " 秒。");
             return;
         }
 
@@ -103,11 +104,11 @@ public class SlimeScribe extends SlimeEyeInverted {
         List<Block> foundMachines = checkArea(p);
 
         if (foundMachines.isEmpty()) {
-            p.sendMessage("§cNo invisible machines found.");
+            p.sendMessage("§c没有发现不可见机器。");
         } else {
             ItemStack book = createBook(p, foundMachines);
             p.getInventory().addItem(book);
-            p.sendMessage("§aInvisible machine locations have been written to a book.");
+            p.sendMessage("§a不可见机器的位置已被记录在书上。");
         }
     }
 

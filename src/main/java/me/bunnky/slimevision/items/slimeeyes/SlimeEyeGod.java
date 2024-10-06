@@ -1,15 +1,18 @@
 package me.bunnky.slimevision.items.slimeeyes;
 
-import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
-import me.bunnky.slimevision.SlimeVision;
-import me.bunnky.slimevision.utility.Utilities;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+
+import javax.annotation.Nonnull;
+
 import org.bukkit.Bukkit;
+import static org.bukkit.Bukkit.getServer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -27,17 +30,15 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-
-import static org.bukkit.Bukkit.getServer;
+import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
+import me.bunnky.slimevision.SlimeVision;
+import me.bunnky.slimevision.utility.Utilities;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 public class SlimeEyeGod extends SlimeEye {
 
@@ -147,9 +148,9 @@ public class SlimeEyeGod extends SlimeEye {
 
             if (!playerCachedBlocks.isEmpty()) {
                 placeBlocksAtInvisibleLocations(pUUID);
-                p.sendMessage("§6Blocks placed at invisible machine locations.");
+                p.sendMessage("§6放置在不可见机器位置的方块。");
             } else {
-                p.sendMessage("§cNo invisible machines to place blocks at.");
+                p.sendMessage("§c没有放置在不可见机器位置的方块。");
             }
             return;
         }
@@ -161,14 +162,14 @@ public class SlimeEyeGod extends SlimeEye {
                 cancelHighlightTask(pUUID);
                 playerCachedBlocks.clear();
                 invisibleToggledOn.put(pUUID, false);
-                p.sendMessage("§cInverted Slime Gaze disabled.");
+                p.sendMessage("§c反向粘液视域已关闭。");
             } else {
                 cancelHighlightTask(pUUID);
                 playerCachedBlocks.clear();
                 toggledOn.put(pUUID, false);
                 invisibleToggledOn.put(pUUID, true);
                 startHighlightTask(p, true);
-                p.sendMessage("§6Inverted Slime Gaze enabled.");
+                p.sendMessage("§6反向粘液视域已开启。");
             }
             return;
         }
@@ -177,7 +178,7 @@ public class SlimeEyeGod extends SlimeEye {
             cancelHighlightTask(pUUID);
             playerCachedBlocks.clear();
             invisibleToggledOn.put(pUUID, false);
-            p.sendMessage("§cInverted Slime Gaze disabled.");
+            p.sendMessage("§c反向粘液视域被禁用。");
         }
 
         boolean currentState = toggledOn.getOrDefault(pUUID, false);
@@ -186,11 +187,11 @@ public class SlimeEyeGod extends SlimeEye {
         if (toggledOn.get(pUUID)) {
             playerCachedBlocks.clear();
             startHighlightTask(p, false);
-            p.sendMessage("§6Slime Gaze enabled.");
+            p.sendMessage("§6粘液视域已开启。");
         } else {
             cancelHighlightTask(pUUID);
             playerCachedBlocks.clear();
-            p.sendMessage("§cSlime Gaze disabled.");
+            p.sendMessage("§c粘液视域已禁用。");
         }
     }
 
@@ -344,17 +345,17 @@ public class SlimeEyeGod extends SlimeEye {
         boolean isInvisibleToggled = invisibleToggledOn.getOrDefault(pUUID, false);
 
         StringBuilder m = new StringBuilder();
-        m.append("§nIn Range:\n");
+        m.append("§n范围:\n");
 
         if (isInvisibleToggled) {
-            m.append("§7Invisible: §e").append(airCount).append("\n");
+            m.append("§7不可视的: §e").append(airCount).append("\n");
         } else {
-            m.append("§5Networks: §e").append(networkCount).append("\n");
-            m.append("§7Invisible: §e").append(airCount).append("\n");
-            m.append("§aValid: §e").append(totalCount).append("\n");
+            m.append("§5网络: §e").append(networkCount).append("\n");
+            m.append("§7不可视的: §e").append(airCount).append("\n");
+            m.append("§a有效的: §e").append(totalCount).append("\n");
 
             if (!nullMachines.isEmpty()) {
-                m.append("§cNull:\n");
+                m.append("§c空:\n");
                 for (String machine : nullMachines) {
                     m.append("§7").append(machine).append("\n");
                 }
@@ -376,7 +377,7 @@ public class SlimeEyeGod extends SlimeEye {
                 cachedBlocks.remove(pUUID, cachedBlocks);
                 toggledOn.put(pUUID, false);
                 invisibleToggledOn.put(pUUID, false);
-                p.sendMessage("§cSlime Gaze disabled.");
+                p.sendMessage("§c粘液视域已禁用。");
             }
         }
     }
