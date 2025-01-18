@@ -1,18 +1,21 @@
 package me.bunnky.slimevision;
 
-import fr.skytasul.glowingentities.GlowingBlocks;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.BlobBuildUpdater;
-import me.bunnky.slimevision.items.slimeeyes.SlimeEye;
-import me.bunnky.slimevision.slimefun.Setup;
-import org.bstats.bukkit.Metrics;
-import org.bstats.charts.AdvancedPie;
-import org.bukkit.plugin.java.JavaPlugin;
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
-
-import javax.annotation.Nonnull;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Nonnull;
+
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.AdvancedPie;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import org.bukkit.Bukkit;
+import fr.skytasul.glowingentities.GlowingBlocks;
+import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
+import me.bunnky.slimevision.items.slimeeyes.SlimeEye;
+import me.bunnky.slimevision.slimefun.Setup;
 
 public class SlimeVision extends JavaPlugin implements SlimefunAddon {
     private static SlimeVision instance;
@@ -32,8 +35,8 @@ public class SlimeVision extends JavaPlugin implements SlimefunAddon {
         getLogger().info("    .-=-.    .-=-.     ");
         getLogger().info("   ( 0   )  ( 0   )    ");
         getLogger().info("    `-=-'    `-=-'     ");
-        getLogger().info("     Slime Vision      ");
-        getLogger().info("       by Bunnky       ");
+        getLogger().info("       粘液可视化       ");
+        getLogger().info("      作者： Bunnky     ");
 
         saveDefaultConfig();
         tryUpdate();
@@ -60,10 +63,14 @@ public class SlimeVision extends JavaPlugin implements SlimefunAddon {
     }
 
     public void tryUpdate() {
-        if (getConfig().getBoolean("options.auto-update", true)
-            && getDescription().getVersion().startsWith("Dev - ")
-        ) {
-            new BlobBuildUpdater(this, getFile(), "SlimeVision", "Dev").start();
+        if (getConfig().getBoolean("options.auto-update") && getDescription().getVersion().startsWith("Build")) {
+            if (Bukkit.getPluginManager().isPluginEnabled("GuizhanLibPlugin")) {
+                try {
+                    GuizhanUpdater.start(this, getFile(), "SlimefunGuguProject", "SlimeVision", "master");
+                } catch (NoClassDefFoundError e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -88,7 +95,7 @@ public class SlimeVision extends JavaPlugin implements SlimefunAddon {
 
     @Override
     public String getBugTrackerURL() {
-        return MessageFormat.format("https://github.com/{0}/{1}/issues", this.username, this.repo);
+        return MessageFormat.format("https://github.com/SlimefunGuguProject/SlimeVision/issues", this.username, this.repo);
     }
 
     @Nonnull

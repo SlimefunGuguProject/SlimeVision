@@ -2,7 +2,7 @@ name: SlimeVision
 author: Bunnky
 description: Slime Vision is a Slimefun Addon that gives people a way to visualize their Slimefun machines with ease, and locate SF Block Storage data.
 main: me.bunnky.slimevision.SlimeVision
-website: https://github.com/Bunnky/SlimeVision
+website: https://github.com/SlimefunGuguProject/SlimeVision
 version: ${project.version}
 api-version: "1.20"
 depend:

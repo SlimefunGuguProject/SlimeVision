@@ -1,5 +1,16 @@
 package me.bunnky.slimevision.items;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+import javax.annotation.Nonnull;
+
+import static org.bukkit.Bukkit.getServer;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
+
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -9,17 +20,6 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunIte
 import me.bunnky.slimevision.SlimeVision;
 import me.bunnky.slimevision.utility.Utilities;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nonnull;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-import static org.bukkit.Bukkit.getServer;
 
 public class SFS extends SimpleSlimefunItem<ItemUseHandler> {
 
@@ -79,7 +79,7 @@ public class SFS extends SimpleSlimefunItem<ItemUseHandler> {
     }
 
     private void save(@NotNull Player p) {
-        p.sendMessage("§e[SlimeVision] Saving Slimefun players and blocks...");
+        p.sendMessage("§e[粘液可视化] 正在保存粘液科技的玩家与方块数据...");
         SlimeVision.consoleMsg("MANUAL SAVE INITIATED");
 
         try {
@@ -91,12 +91,12 @@ public class SFS extends SimpleSlimefunItem<ItemUseHandler> {
                 if (saveBlocks != null) {
                     saveBlocks.invoke(autoSavingServiceInstance);
                 }
-                p.sendMessage("§a§l[SlimeVision] Slimefun Saved!");
+                p.sendMessage("§a§l[粘液可视化] 粘液科技已成功保存!");
                 SlimeVision.consoleMsg("MANUAL SAVE FINISHED");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            p.sendMessage("§c[SlimeVision] An error occurred while saving.");
+            p.sendMessage("§c[粘液可视化] 在保存的时候发生了一个错误。");
         }
     }
 }

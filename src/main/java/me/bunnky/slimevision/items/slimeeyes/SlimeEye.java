@@ -1,15 +1,14 @@
 package me.bunnky.slimevision.items.slimeeyes;
 
-import fr.skytasul.glowingentities.GlowingBlocks;
-import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
-import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
-import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
-import me.bunnky.slimevision.SlimeVision;
-import me.bunnky.slimevision.utility.Utilities;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+
+import javax.annotation.Nonnull;
+
+import static org.bukkit.Bukkit.getServer;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -24,14 +23,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-
-import static org.bukkit.Bukkit.getServer;
+import fr.skytasul.glowingentities.GlowingBlocks;
+import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
+import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
+import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
+import me.bunnky.slimevision.SlimeVision;
+import me.bunnky.slimevision.utility.Utilities;
 
 public class SlimeEye extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable, Listener {
 
@@ -252,12 +253,12 @@ public class SlimeEye extends SimpleSlimefunItem<ItemUseHandler> implements NotP
         }
 
         StringBuilder m = new StringBuilder();
-        m.append("§nIn Range:\n");
+        m.append("§n范围:\n");
 
         if (inverted) {
-            m.append("§7Invisible: §e").append(total).append("\n");
+            m.append("§7不可见的: §e").append(total).append("\n");
         } else {
-            m.append("§aValid: §e").append(total).append("\n");
+            m.append("§a有效的: §e").append(total).append("\n");
         }
         m.append("§f┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n");
 
