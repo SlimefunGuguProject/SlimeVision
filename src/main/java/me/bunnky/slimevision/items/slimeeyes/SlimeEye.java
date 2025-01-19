@@ -93,7 +93,7 @@ public class SlimeEye extends SimpleSlimefunItem<ItemUseHandler> implements NotP
         if (lastActionTime.containsKey(pUUID) &&
             (currentTime - lastActionTime.get(pUUID)) < getCooldown()) {
             long remainingTime = (getCooldown() - (currentTime - lastActionTime.get(pUUID))) / 1000;
-            p.sendMessage("§cYou must wait " + remainingTime + " seconds.");
+            p.sendMessage("§c你必须等待 " + remainingTime + " 秒。");
             return;
         }
 
@@ -124,8 +124,8 @@ public class SlimeEye extends SimpleSlimefunItem<ItemUseHandler> implements NotP
 
     protected void cycleColor(@NotNull Player p) {
         cIdx = (cIdx + 1) % (cOpts.length + 1);
-        String colorName = cIdx == 0 ? "§eDefault" : Utilities.getColorName(cOpts[cIdx - 1]);
-        p.sendMessage("§aGlow color set to: §e" + colorName);
+        String colorName = cIdx == 0 ? "§e默认" : Utilities.getColorName(cOpts[cIdx - 1]);
+        p.sendMessage("§a高亮颜色设置为：§e" + colorName);
     }
 
     protected void startHighlight(@NotNull Player p) {
@@ -133,7 +133,7 @@ public class SlimeEye extends SimpleSlimefunItem<ItemUseHandler> implements NotP
         if (activeTasks.containsKey(pUUID)) {
             return;
         }
-        p.sendMessage("§6Slime Gaze enabled.");
+        p.sendMessage("§6粘液视野启用。");
 
         BukkitRunnable task = new BukkitRunnable() {
             @Override
@@ -146,7 +146,7 @@ public class SlimeEye extends SimpleSlimefunItem<ItemUseHandler> implements NotP
 
         getServer().getScheduler().runTaskLater(SlimeVision.getInstance(), () -> {
             cancelHighlight(pUUID);
-            p.sendMessage("§cSlime Gaze disabled.");
+            p.sendMessage("§c粘液视野禁用。");
         }, 10 * 20L);
     }
 

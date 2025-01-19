@@ -6,6 +6,7 @@ import me.bunnky.slimevision.items.GoldenSlimeFish;
 import me.bunnky.slimevision.items.ParticleItem;
 import me.bunnky.slimevision.items.slimeeyes.SlimeEyeGod;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import net.guizhanss.minecraft.guizhanlib.gugu.minecraft.ChatColors;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -32,39 +33,7 @@ public class Utilities {
     }
 
     public static @NotNull String getColorName(@NotNull ChatColor c) {
-        if (c.equals(ChatColor.RED)) {
-            return "Red";
-        } else if (c.equals(ChatColor.DARK_RED)) {
-            return "Dark Red";
-        } else if (c.equals(ChatColor.DARK_AQUA)) {
-            return "Dark Aqua";
-        } else if (c.equals(ChatColor.AQUA)) {
-            return "Aqua";
-        } else if (c.equals(ChatColor.YELLOW)) {
-            return "Yellow";
-        } else if (c.equals(ChatColor.GREEN)) {
-            return "Green";
-        } else if (c.equals(ChatColor.DARK_GREEN)) {
-            return "Dark Green";
-        } else if (c.equals(ChatColor.DARK_PURPLE)) {
-            return "Dark Purple";
-        } else if (c.equals(ChatColor.LIGHT_PURPLE)) {
-            return "Light Purple";
-        } else if (c.equals(ChatColor.BLUE)) {
-            return "Blue";
-        } else if (c.equals(ChatColor.DARK_BLUE)) {
-            return "Dark Blue";
-        } else if (c.equals(ChatColor.BLACK)) {
-            return "Black";
-        } else if (c.equals(ChatColor.WHITE)) {
-            return "White";
-        } else if (c.equals(ChatColor.GRAY)) {
-            return "Gray";
-        } else if (c.equals(ChatColor.DARK_GRAY)) {
-            return "Dark Gray";
-        } else {
-            return "Unknown";
-        }
+        return ChatColors.fromChatColor(c).getChinese();
     }
 
     public static void placeBlock(@NotNull Block block, @NotNull BlockFace face, @NotNull Material material) {

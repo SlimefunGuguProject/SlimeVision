@@ -34,7 +34,7 @@ public class Setup {
 
         SlimeVision plugin = SlimeVision.getInstance();
 
-        ItemStack groupItem = new CustomItemStack(Material.ENDER_EYE, "&b粘液可视化", "", "我希望它能成功运行!");
+        ItemStack groupItem = new CustomItemStack(Material.ENDER_EYE, "&b粘液可视化");
         NamespacedKey groupId = new NamespacedKey(SlimeVision.getInstance(), "slime_vision");
         ItemGroup group = new ItemGroup(groupId, groupItem);
 

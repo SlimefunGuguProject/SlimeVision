@@ -1,36 +1,42 @@
 package me.bunnky.slimevision;
 
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
+import fr.skytasul.glowingentities.GlowingBlocks;
+import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import me.bunnky.slimevision.items.slimeeyes.SlimeEye;
+import me.bunnky.slimevision.slimefun.Setup;
+import net.guizhanss.minecraft.guizhanlib.updater.GuizhanUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.AdvancedPie;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import org.bukkit.Bukkit;
-import fr.skytasul.glowingentities.GlowingBlocks;
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
-import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
-import me.bunnky.slimevision.items.slimeeyes.SlimeEye;
-import me.bunnky.slimevision.slimefun.Setup;
+import javax.annotation.Nonnull;
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
 
 public class SlimeVision extends JavaPlugin implements SlimefunAddon {
+
     private static SlimeVision instance;
     private final String username;
     private final String repo;
     private GlowingBlocks glowingBlocks;
 
     public SlimeVision() {
-        this.username = "Bunnky";
+        this.username = "SlimefunGuguProject";
         this.repo = "SlimeVision";
     }
 
     @Override
     public void onEnable() {
         instance = this;
+
+        if (!getServer().getPluginManager().isPluginEnabled("GuizhanLibPlugin")) {
+            getLogger().log(Level.SEVERE, "本插件需要 鬼斩前置库插件(GuizhanLibPlugin) 才能运行!");
+            getLogger().log(Level.SEVERE, "从此处下载: https://50l.cc/gzlib");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         getLogger().info("    .-=-.    .-=-.     ");
         getLogger().info("   ( 0   )  ( 0   )    ");
@@ -47,7 +53,7 @@ public class SlimeVision extends JavaPlugin implements SlimefunAddon {
         setupMetrics();
     }
 
-    public void setupMetrics (){
+    public void setupMetrics() {
         Metrics metrics = new Metrics(this, 23251);
 
         AdvancedPie playersChart = new AdvancedPie("slimeeye_users", () -> {
@@ -64,13 +70,7 @@ public class SlimeVision extends JavaPlugin implements SlimefunAddon {
 
     public void tryUpdate() {
         if (getConfig().getBoolean("options.auto-update") && getDescription().getVersion().startsWith("Build")) {
-            if (Bukkit.getPluginManager().isPluginEnabled("GuizhanLibPlugin")) {
-                try {
-                    GuizhanUpdater.start(this, getFile(), "SlimefunGuguProject", "SlimeVision", "master");
-                } catch (NoClassDefFoundError e) {
-                    e.printStackTrace();
-                }
-            }
+            GuizhanUpdater.start(this, getFile(), "SlimefunGuguProject", "SlimeVision", "master");
         }
     }
 
@@ -95,7 +95,7 @@ public class SlimeVision extends JavaPlugin implements SlimefunAddon {
 
     @Override
     public String getBugTrackerURL() {
-        return MessageFormat.format("https://github.com/SlimefunGuguProject/SlimeVision/issues", this.username, this.repo);
+        return MessageFormat.format("https://github.com/{0}/{1}/issues", this.username, this.repo);
     }
 
     @Nonnull
