@@ -1,5 +1,9 @@
 ![SlimeVision](https://github.com/user-attachments/assets/044e9fec-5a44-4b16-b091-23738f4ae4bf)
 
+## 下载
+
+[下载 SlimeVision](https://resources.guizhanss.com/plugin/SlimeVision)
+
 ### Slime Vision is a Slimefun Addon that gives people a way to visualize their Slimefun machines and locate SF Block Storage data with ease.
 
 ## How it works
